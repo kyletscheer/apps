@@ -3,63 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Liar's Dice Calculator | The ultimate Liar's Dice Probability & Strategy
-      Companion
-    </title>
+    <title>TravelCents | Currency Conversion Game</title>
     <link rel="icon" type="image/png" href="resources/favicon.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script
       src="https://kit.fontawesome.com/016db943e9.js"
       crossorigin="anonymous"
     ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      /* Custom CSS for the dark gradient and animations */
       :root {
-        /* Theme Colors - Updated for Liar's Dice Calculator */
-        --primary-color: #ffcc00; /* Vibrant Gold/Yellow */
-        --secondary-color: #0049b3; /* Dark Blue */
-        --background-start: #0a0a0a; /* Neutral 950 */
-        --background-end: #000d33; /* Deep Blue */
+        --primary-color: #00aeff; /* Sky Blue - Primary */
+        --secondary-color: #F3BD27; /* Golden Yellow - Secondary */
+        --background-start: #2392c7; /* Sky 800 */
+        --background-end: #0f172a; /* Slate 900 */
       }
 
       body {
         font-family: "Inter", sans-serif;
         background: var(--background-start);
-        /* Subtle radial gradient centered at the top */
         background: radial-gradient(
           circle at 50% 0%,
           var(--background-end) 0%,
           var(--background-start) 40%
         );
-        color: #e5e5e5; /* Neutral 200 */
+        color: #e5e5e5;
         line-height: 1.6;
-        overflow-x: hidden; /* Prevent horizontal scroll from subtle animations */
+        overflow-x: hidden;
       }
 
-      /* Subtle Glow for CTA buttons (Updated for new primary color: #FFCC00) */
       .cta-glow {
-        box-shadow: 0 0 15px rgba(255, 204, 0, 0.6),
-          0 0 5px rgba(255, 204, 0, 0.4);
+        box-shadow: 0 0 15px rgba(52, 211, 153, 0.4),
+          0 0 5px rgba(52, 211, 153, 0.2);
         transition: all 0.3s ease;
       }
 
       .cta-glow:hover {
-        box-shadow: 0 0 25px rgba(255, 204, 0, 0.8),
-          0 0 10px rgba(255, 204, 0, 0.6);
+        box-shadow: 0 0 25px rgba(52, 211, 153, 0.6),
+          0 0 10px rgba(52, 211, 153, 0.4);
         transform: translateY(-2px);
       }
 
-      /* Custom Phone Mockup Styling */
       .phone-mockup {
         width: 100%;
-        max-width: 320px; /* Max size for phone */
+        max-width: 320px;
         aspect-ratio: 15 / 31;
         background-color: #000;
         border-radius: 40px;
         padding: 8px;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
-          /* Deep shadow */ 0 0 0 10px rgba(255, 255, 255, 0.05); /* Border light */
+          0 0 0 10px rgba(255, 255, 255, 0.05);
         position: relative;
         z-index: 10;
       }
@@ -71,7 +67,6 @@
         background-color: #1a1a1a;
       }
       .phone-mockup::before {
-        /* Notch */
         content: "";
         position: absolute;
         top: 10px;
@@ -83,7 +78,6 @@
         border-radius: 0 0 15px 15px;
       }
 
-      /* --- Scroll Animation Classes --- */
       .animate-on-scroll {
         opacity: 0;
         transform: translateY(30px);
@@ -93,41 +87,30 @@
         opacity: 1;
         transform: translateY(0);
       }
-      /* Fade up stagger for feature cards */
-      .animate-on-scroll.card-1 {
-        transition-delay: 0.1s;
-      }
-      .animate-on-scroll.card-2 {
-        transition-delay: 0.2s;
-      }
-      .animate-on-scroll.card-3 {
-        transition-delay: 0.3s;
-      }
-      .animate-on-scroll.card-4 {
-        transition-delay: 0.4s;
-      }
+      .animate-on-scroll.card-1 { transition-delay: 0.1s; }
+      .animate-on-scroll.card-2 { transition-delay: 0.2s; }
+      .animate-on-scroll.card-3 { transition-delay: 0.3s; }
+      .animate-on-scroll.card-4 { transition-delay: 0.4s; }
 
-      /* Subtle parallax effect on hero image container */
       .hero-visual-container {
-        transition: transform 0.1s ease-out; /* Smooth movement */
+        transition: transform 0.1s ease-out;
       }
 
-      /* --- Carousel Specific Styling: Hide Scrollbar --- */
       .scrollbar-hide {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
       .scrollbar-hide::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
+        display: none;
       }
-      /* New: FAQ Accordion Styling (Hidden by default) */
+
       .faq-content {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.4s ease-out;
       }
       .faq-item.active .faq-content {
-        max-height: 500px; /* Sufficiently large value */
+        max-height: 500px;
       }
       .faq-item.active .faq-toggle-icon {
         transform: rotate(180deg);
@@ -143,14 +126,14 @@
       >
         <a href="#" class="flex items-center space-x-2">
           <div class="text-2xl font-extrabold text-[var(--primary-color)]">
-            <img src="resources/icon.png" alt="Dice Icon" class="w-8 h-8" />
+            <span class="inline-block"><i class="fa-solid fa-coins"></i></span>
           </div>
           <span class="text-2xl font-bold tracking-tight text-white"
-            >Liar's Dice Calculator</span
+            >TravelCents</span
           >
         </a>
         <span class="hidden md:block text-sm text-white/70 font-medium">
-          Probability & Strategy Companion
+          Test your travel smarts
         </span>
       </div>
     </header>
@@ -168,34 +151,27 @@
               <h1
                 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white mb-6"
               >
-                Master the Math. Win with
-                <span class="text-[var(--primary-color)]"
-                  >Calculated Precision</span
-                >.
+                Master Real-World<br>
+                <span class="text-[var(--primary-color)]">Currency Conversion</span>
               </h1>
               <p
                 class="text-xl text-white/70 mb-10 max-w-lg lg:max-w-none mx-auto lg:mx-0"
               >
-                Tired of guessing your next move?
-                <b>This Liar's Dice Calculator</b> is your secret weapon. It's
-                the ultimate strategic companion that instantly calculates your
-                odds based on available data and helps you make the best move.
-                Our powerful probability engine gives you the confidence to bid,
-                call a bluff, or make the perfect move.
+                TravelCents turns currency conversion into a learning challenge. 
+                No need to pull out a calculator or conversion app — practice your mental math.
               </p>
 
               <div
                 class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               >
                 <a
-                  href="https://apps.apple.com/us/app/liars-dice-calculator/id6752702636"
-                  target="_blank"
-                  class="px-8 py-4 bg-[var(--primary-color)] text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cta-glow"
+                  href="https://apps.apple.com/us/app/travelcents-guess-the-rate/id6757678711"
+                  class="px-8 py-4 bg-white text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cta-glow"
                 >
-                  Get the App
+                  <i class="fa-brands fa-apple mr-2"></i>Download on App Store
                 </a>
                 <a
-                  href="https://forms.gle/kYam4n11xVCfupGV6"
+                  href="https://forms.gle/qaQbvKwKvAmSCPmW6"
                   target="_blank"
                   class="px-8 py-4 bg-transparent border-2 border-[var(--primary-color)] text-[var(--primary-color)] font-medium rounded-xl hover:bg-[var(--primary-color)]/10 transition duration-300"
                 >
@@ -214,17 +190,14 @@
                 ></div>
 
                 <div class="phone-mockup animate-on-scroll card-2">
-                  <div class="phone-screen">
-                    <video
-                      src="resources/recording1.mp4"
-                      autoplay
-                      loop
-                      muted
-                      playsinline
-                      class="w-full h-full object-cover"
-                    >
-                      Your browser does not support the video tag.
-                    </video>
+                  <div class="phone-screen relative group">
+                     <video 
+                        src="/resources/travelcents_app_new.mp4" 
+                        alt="TravelCents Gameplay" 
+                        class="w-full h-full object-cover"
+                        autoplay
+                        loop
+                    />
                   </div>
                 </div>
               </div>
@@ -233,6 +206,45 @@
         </div>
       </section>
 
+      <section
+        id="mission"
+        class="py-24 sm:py-32 bg-white/5 border-t border-white/10"
+      >
+        <div
+          class="max-w-3xl mx-auto text-center p-8 sm:p-10 rounded-2xl border border-white/10 bg-[var(--primary-color)]/10 backdrop-blur-md animate-on-scroll"
+        >
+          <div class="text-4xl mb-4">🪙</div>
+          <h3 class="text-3xl font-extrabold text-[var(--primary-color)] mb-4">
+            Understand the Real Value of Money
+          </h3>
+
+          <p class="text-white/80 text-lg mb-6">
+            <b>TravelCents</b> helps travelers, students, and finance enthusiasts understand the <em>real value of money</em> across borders — through play.
+          </p>
+
+          <blockquote
+            class="text-white/70 italic border-l-4 border-[var(--secondary-color)] pl-4 mb-6 max-w-xl mx-auto"
+          >
+            "A currency conversion guessing game that builds your intuition for global prices and exchange rates."
+          </blockquote>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left max-w-lg mx-auto">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-check text-[var(--secondary-color)]"></i>
+                <span>Prepare for your next trip</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-check text-[var(--secondary-color)]"></i>
+                <span>Improve mental math</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-check text-[var(--secondary-color)]"></i>
+                <span>Reduce travel anxiety</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
       <section
         id="free"
         class="py-24 sm:py-32 bg-white/5 border-t border-white/10"
@@ -284,7 +296,7 @@
           >
             <!-- Feedback Button -->
             <a
-              href="mailto:scheerapps@gmail.com?subject=Liars%20Dice%20Calculator%20App%20Feedback"
+              href="mailto:scheerapps@gmail.com?subject=TravelCents%20App%20Feedback"
               class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--secondary-color)] text-gray-900 font-bold rounded-lg shadow-lg hover:bg-[var(--secondary-color)]/80 transition duration-300"
             >
               <i class="fa-solid fa-comment-dots"></i>
@@ -310,87 +322,92 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-16 animate-on-scroll">
             <h2 class="text-4xl font-extrabold text-white">
-              Core App Features
+              Dynamic Gameplay. Real Learning.
             </h2>
             <p class="mt-4 text-xl text-white/70 max-w-2xl mx-auto">
-              The only companion you need for Liar’s Dice strategy.
+              Every round feels new thanks to live data and smart randomization.
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Real-Time Odds -->
             <div
-              class="p-8 rounded-2xl bg-white/5 border border-white/10 shadow-lg hover:shadow-[0_0_20px_0_rgba(255,204,0,0.2)] transition duration-300 animate-on-scroll"
+              class="p-8 rounded-2xl bg-white/5 border border-white/10 shadow-lg hover:shadow-[0_0_20px_0_rgba(52,211,153,0.2)] transition duration-300 animate-on-scroll card-1"
+            >
+              <div class="text-[var(--secondary-color)] text-5xl mb-4">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">
+                Real-Time Rates with Offline Support
+              </h3>
+              <p class="text-white/70 text-sm">
+                Always up-to-date. Play with live exchange rates from 25+ global currencies. Offline mode keeps you practicing on the go.
+              </p>
+            </div>
+<div
+              class="p-8 rounded-2xl bg-white/5 border border-white/10 shadow-lg hover:shadow-[0_0_20px_0_rgba(52,211,153,0.2)] transition duration-300 animate-on-scroll card-2"
             >
               <div class="text-[var(--secondary-color)] text-5xl mb-4">
                 <i class="fa-solid fa-dice"></i>
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">Real-Time Odds</h3>
+              <h3 class="text-xl font-bold text-white mb-2">
+                Smart Randomization
+              </h3>
               <p class="text-white/70 text-sm">
-                Instantly see the mathematical probability of any bid
-                succeeding. Quickly update game info to keep things rolling
-                smoothly.
+                Every question is unique thanks to weighted randomization, created to reflect real-world travel spending.
+            </div>
+            <div
+              class="p-8 rounded-2xl bg-white/5 border border-white/10 shadow-lg hover:shadow-[0_0_20px_0_rgba(52,211,153,0.2)] transition duration-300 animate-on-scroll card-2"
+            >
+              <div class="text-[var(--secondary-color)] text-5xl mb-4">
+                <i class="fa-solid fa-stopwatch"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">
+                Timed & Free Play Modes
+              </h3>
+              <p class="text-white/70 text-sm">
+                Race against the clock or practice calmly with no pressure in Free Play Mode.
               </p>
             </div>
 
-            <!-- Strategic Next Moves -->
             <div
-              class="p-8 rounded-2xl bg-white/5 border border-white/10 shadow-lg hover:shadow-[0_0_20px_0_rgba(255,204,0,0.2)] transition duration-300 animate-on-scroll"
+              class="p-8 rounded-2xl bg-white/5 border border-white/10 shadow-lg hover:shadow-[0_0_20px_0_rgba(52,211,153,0.2)] transition duration-300 animate-on-scroll card-3"
             >
               <div class="text-[var(--secondary-color)] text-5xl mb-4">
-                <i class="fa-solid fa-chess-knight"></i>
+                <i class="fa-solid fa-right-left"></i>
               </div>
               <h3 class="text-xl font-bold text-white mb-2">
-                Strategic Next Moves
+                Bi-Directional Play
               </h3>
               <p class="text-white/70 text-sm">
-                Get a list of the smartest bids, ranked by probability, to stay
-                one step ahead. Use the info you know to your advantage.
+                Conversions switch between destination and home currencies to keep your brain sharp.
               </p>
             </div>
 
-            <!-- Flexible Custom Rules -->
             <div
-              class="p-8 rounded-2xl bg-white/5 border border-white/10 shadow-lg hover:shadow-[0_0_20px_0_rgba(255,204,0,0.2)] transition duration-300 animate-on-scroll"
+              class="p-8 rounded-2xl bg-white/5 border border-white/10 shadow-lg hover:shadow-[0_0_20px_0_rgba(52,211,153,0.2)] transition duration-300 animate-on-scroll card-4"
             >
               <div class="text-[var(--secondary-color)] text-5xl mb-4">
-                <i class="fa-solid fa-sliders"></i>
+                <i class="fa-solid fa-trophy"></i>
               </div>
               <h3 class="text-xl font-bold text-white mb-2">
-                Flexible Custom Rules
+                Progress Tracking
               </h3>
               <p class="text-white/70 text-sm">
-                Customize game settings for different Liar’s Dice versions, or
-                save a game state for later.
-              </p>
-            </div>
-
-            <!-- Customize Bluff Rate -->
-            <div
-              class="p-8 rounded-2xl bg-white/5 border border-white/10 shadow-lg hover:shadow-[0_0_20px_0_rgba(255,204,0,0.2)] transition duration-300 animate-on-scroll"
-            >
-              <div class="text-[var(--secondary-color)] text-5xl mb-4">
-                <i class="fa-solid fa-brain"></i>
-              </div>
-              <h3 class="text-xl font-bold text-white mb-2">
-                Customize Bluff Rate
-              </h3>
-              <p class="text-white/70 text-sm">
-                Is a player more likely to bluff? Adjust their bluff rate to see
-                how probabilities shift in real time.
+                Review accuracy, streaks, and personal improvement over time. Export to CSV.
               </p>
             </div>
           </div>
         </div>
       </section>
-      <!-- <section id="testimonials" class="py-20 sm:py-28">
+<!--
+      <section id="testimonials" class="py-20 sm:py-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-16 animate-on-scroll">
             <h2 class="text-4xl font-extrabold text-white">
-              Trusted by Early Adopters
+              Trusted by Travelers
             </h2>
             <p class="mt-4 text-xl text-white/70 max-w-2xl mx-auto">
-              Don't just take our word for it—see what our community says.
+              See how others are preparing for their next adventure.
             </p>
           </div>
 
@@ -403,14 +420,13 @@
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star-half-stroke"></i>
+                <i class="fa-solid fa-star"></i>
               </div>
               <p class="text-white/90 italic mb-4">
-                "The most elegant and functional app I've used this year. The
-                workflow improvements are immediate and massive."
+                "I used to constantly pull out my calculator app in Tokyo. After playing this for a week, I could convert Yen to Dollars in my head instantly."
               </p>
               <p class="text-[var(--primary-color)] font-semibold text-sm">
-                — Sarah L.
+                — Sarah L., Backpacker
               </p>
             </div>
 
@@ -422,14 +438,13 @@
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
               </div>
               <p class="text-white/90 italic mb-4">
-                "Simple to start, yet powerful enough for complex tasks. I can't
-                believe this is available for free."
+                "The mental math aspect is actually really fun. It's not just for travel; it keeps my brain active during my commute."
               </p>
               <p class="text-[var(--primary-color)] font-semibold text-sm">
-                — Alex V., Startup Founder
+                — Alex V., Finance Student
               </p>
             </div>
 
@@ -444,136 +459,92 @@
                 <i class="fa-solid fa-star"></i>
               </div>
               <p class="text-white/90 italic mb-4">
-                "The community-first approach is refreshing. It's a joy to use
-                an app developed with this much care and transparency."
+                "Love the clean design. Zen mode is perfect for when I want to practice without the stress of the timer."
               </p>
               <p class="text-[var(--primary-color)] font-semibold text-sm">
-                — Michael P., Beta Tester
+                — Michael P., Digital Nomad
               </p>
             </div>
           </div>
         </div>
       </section>
     -->
-      <section id="gallery" class="py-20 sm:py-28">
+      <section
+        id="gallery"
+        class="py-20 sm:py-28 bg-white/5 border-t border-white/10"
+      >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-16 animate-on-scroll">
             <h2 class="text-4xl font-extrabold text-white">
-              A Peek Inside the Calculator
+              App Preview
             </h2>
             <p class="mt-4 text-xl text-white/70 max-w-2xl mx-auto">
-              Visualize the odds and master your next move with a beautiful,
-              modern interface.
+              Get a glimpse of the gameplay and modes.
             </p>
           </div>
 
           <div
             class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 scrollbar-hide"
           >
-            <!-- Screenshot 1 -->
             <div
               class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-1"
             >
               <img
-                src="resources/ssgame1.png"
-                alt="App Screenshot 1: Real-Time Probability"
+                src="/resources/1.jpeg"
+                alt="Screenshot 1"
                 class="w-full h-auto transition-transform duration-500 group-hover:scale-105"
               />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex items-end"
-              >
-                <p class="text-white font-semibold text-lg">
-                  Real-Time Probability
-                </p>
-              </div>
+  
             </div>
-
-            <!-- Screenshot 2 -->
-            <div
-              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-2"
+                        <div
+              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-1"
             >
               <img
-                src="resources/ssresults2.png"
-                alt="App Screenshot 2: Results Breakdown"
+                src="/resources/2.jpeg"
+                alt="Screenshot 2"
                 class="w-full h-auto transition-transform duration-500 group-hover:scale-105"
               />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex items-end"
-              >
-                <p class="text-white font-semibold text-lg">
-                  Results Breakdown
-                </p>
-              </div>
+  
             </div>
-
-            <!-- Screenshot 3 -->
-            <div
-              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-3"
+                        <div
+              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-1"
             >
               <img
-                src="resources/ssnextmove.png"
-                alt="App Screenshot 3: Smart Next Move"
+                src="/resources/3.jpeg"
+                alt="Screenshot 3"
                 class="w-full h-auto transition-transform duration-500 group-hover:scale-105"
               />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex items-end"
-              >
-                <p class="text-white font-semibold text-lg">Smart Next Move</p>
-              </div>
+  
             </div>
-
-            <!-- Screenshot 5 -->
-            <div
-              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-5"
+                        <div
+              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-1"
             >
               <img
-                src="resources/sssettings2.png"
-                alt="App Screenshot 5: Settings and Customization"
+                src="/resources/4.jpeg"
+                alt="Screenshot 4"
                 class="w-full h-auto transition-transform duration-500 group-hover:scale-105"
               />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex items-end"
-              >
-                <p class="text-white font-semibold text-lg">
-                  Settings & Customization
-                </p>
-              </div>
+  
             </div>
-
-            <!-- Screenshot 6 -->
-            <div
-              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-6"
+                        <div
+              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-1"
             >
               <img
-                src="resources/sstutorial.png"
-                alt="App Screenshot 6: Interactive Tutorial"
+                src="/resources/5.jpeg"
+                alt="Screenshot 5"
                 class="w-full h-auto transition-transform duration-500 group-hover:scale-105"
               />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex items-end"
-              >
-                <p class="text-white font-semibold text-lg">
-                  Interactive Tutorial
-                </p>
-              </div>
+  
             </div>
-
-            <!-- Screenshot 7 -->
-            <div
-              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-7"
+                        <div
+              class="flex-shrink-0 w-72 md:w-80 snap-center group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-on-scroll card-1"
             >
               <img
-                src="resources/sssave.png"
-                alt="App Screenshot 7: Save and Resume Game"
+                src="/resources/6.jpeg"
+                alt="Screenshot 6"
                 class="w-full h-auto transition-transform duration-500 group-hover:scale-105"
               />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex items-end"
-              >
-                <p class="text-white font-semibold text-lg">
-                  Save and Resume Game
-                </p>
-              </div>
+  
             </div>
           </div>
         </div>
@@ -592,18 +563,14 @@
               <button
                 class="faq-toggle w-full flex justify-between items-center p-5 text-left font-semibold text-white hover:bg-white/5 transition duration-200"
               >
-                <span>Is this really free forever? How do you make money?</span>
+                <span>Where do the exchange rates come from?</span>
                 <i
                   class="fa-solid fa-chevron-down text-sm faq-toggle-icon transition-transform"
                 ></i>
               </button>
               <div class="faq-content bg-white/5">
                 <p class="p-5 pt-0 text-white/70">
-                  Yes, the core app will always be free. I make apps because I
-                  want them to exist, not as a career. If you've found this app
-                  useful, you can support development through voluntary
-                  contributions on Ko-fi or by sharing the app with others.
-                </p>
+https://www.exchangerate-api.com/                </p>
               </div>
             </div>
 
@@ -612,7 +579,7 @@
                 class="faq-toggle w-full flex justify-between items-center p-5 text-left font-semibold text-white hover:bg-white/5 transition duration-200"
               >
                 <span
-                  >Where can I submit bug reports and feature requests?</span
+                  >Is the app free to use?</span
                 >
                 <i
                   class="fa-solid fa-chevron-down text-sm faq-toggle-icon transition-transform"
@@ -620,10 +587,7 @@
               </button>
               <div class="faq-content bg-white/5">
                 <p class="p-5 pt-0 text-white/70">
-                  Awesome! I'd love to hear from you. Please use the
-                  <i>Send Feedback</i> button above or email me directly at
-                  <i>scheerapps@gmail.com</i>. Let me know how I can improve the
-                  app.
+                  Yes! No ads. No in-app purchases. TravelCents is completely free to download and use. If you enjoy it, consider <a href="https://ko-fi.com/scheerapps" target="_blank" class="text-[var(--secondary-color)] hover:underline">buying my a coffee on Ko-Fi</a>.
                 </p>
               </div>
             </div>
@@ -632,22 +596,14 @@
               <button
                 class="faq-toggle w-full flex justify-between items-center p-5 text-left font-semibold text-white hover:bg-white/5 transition duration-200"
               >
-                <span>Is my data private and secure?</span>
+                <span>Which currencies are supported?</span>
                 <i
                   class="fa-solid fa-chevron-down text-sm faq-toggle-icon transition-transform"
                 ></i>
               </button>
               <div class="faq-content bg-white/5">
                 <p class="p-5 pt-0 text-white/70">
-                  Yes. I use FireBase for basic anonymous analytics, but that's
-                  all. We do not sell your data. Check out the
-                  <a
-                    href="../../privacy-policy.html"
-                    class="text-[var(--primary-color)] hover:underline"
-                    >Privacy Policy</a
-                  >
-                  (linked in the footer) for full details on how we handle your
-                  information.
+                  We support all major currencies. 154 currencies as of January 2025.
                 </p>
               </div>
             </div>
@@ -660,20 +616,18 @@
           class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 animate-on-scroll"
         >
           <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">
-            Stop Playing Blind. Start Playing Smart.
+            Ready to Travel Smarter?
           </h2>
           <p class="text-xl text-white/70 mb-10">
-            Download <b>Liar's Dice Calculator</b> and dominate your next game
-            of Liar's Dice!
+            Get ready to travel smarter — and spend wiser. Turn exchange rates into an adventure.
           </p>
 
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://apps.apple.com/us/app/liars-dice-calculator/id6752702636"
-              target="_blank"
-              class="px-10 py-5 bg-[var(--primary-color)] text-gray-900 font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 cta-glow"
+              href="https://apps.apple.com/us/app/travelcents-guess-the-rate/id6757678711"
+              class="px-10 py-5 bg-white text-gray-900 font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 cta-glow"
             >
-              Download Liar's Dice Calculator Today
+              <i class="fa-brands fa-apple mr-2"></i>Download on App Store
             </a>
           </div>
         </div>
@@ -728,7 +682,6 @@
     </footer>
 
     <script>
-      // --- 1. Scroll-Fade Animation Logic ---
       document.addEventListener("DOMContentLoaded", () => {
         const elements = document.querySelectorAll(".animate-on-scroll");
 
@@ -737,52 +690,46 @@
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 entry.target.classList.add("is-visible");
-                observer.unobserve(entry.target); // Stop observing once animated
+                observer.unobserve(entry.target);
               }
             });
           },
           {
-            threshold: 0.1, // Trigger when 10% of element is visible
-            rootMargin: "0px 0px -50px 0px", // Start slightly earlier
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px",
           }
         );
 
         elements.forEach((el) => {
           observer.observe(el);
         });
-                // --- 3. FAQ Accordion Logic (NEW) ---
+
         const faqToggles = document.querySelectorAll(".faq-toggle");
         faqToggles.forEach((button) => {
           button.addEventListener("click", () => {
             const item = button.closest(".faq-item");
             const content = item.querySelector(".faq-content");
 
-            // Close all other open items
             document
               .querySelectorAll(".faq-item.active")
               .forEach((activeItem) => {
                 if (activeItem !== item) {
                   activeItem.classList.remove("active");
-                  activeItem.querySelector(".faq-content").style.maxHeight =
-                    null;
+                  activeItem.querySelector(".faq-content").style.maxHeight = null;
                 }
               });
 
-            // Toggle the clicked item
             if (item.classList.contains("active")) {
               item.classList.remove("active");
               content.style.maxHeight = null;
             } else {
               item.classList.add("active");
-              // Set maxHeight to the scroll height for smooth animation
               content.style.maxHeight = content.scrollHeight + "px";
             }
           });
         });
       });
 
-
-      // --- 2. Subtle Parallax/Tilt Effect on Hero Visual ---
       document.addEventListener("mousemove", (e) => {
         const heroVisual = document.getElementById("hero-visual");
         const visualContainer = heroVisual.querySelector(
@@ -794,17 +741,14 @@
           const centerX = rect.left + rect.width / 2;
           const centerY = rect.top + rect.height / 2;
 
-          const offsetX = (e.clientX - centerX) / 100; // Small divisor for subtle effect
+          const offsetX = (e.clientX - centerX) / 100;
           const offsetY = (e.clientY - centerY) / 100;
 
-          // Apply slight translation and rotation for a 3D-ish float effect
           visualContainer.style.transform = `translate3d(${-offsetX}px, ${-offsetY}px, 0) rotateX(${
             offsetY / 4
           }deg) rotateY(${-offsetX / 4}deg)`;
         }
       });
-
-      
     </script>
   </body>
 </html>
