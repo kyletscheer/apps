@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RandoRun | Random strength bursts on every run</title>
+<meta name="description" content="RandoRun gives you a random bodyweight exercise at unpredictable moments during your run. Free, no ads." />
+<link rel="icon" type="image/png" href="resources/icon.png" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://kit.fontawesome.com/016db943e9.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+<style>
+:root{--primary-color:#0093ff;--secondary-color:#ffffff;--background-start:#04090f;--background-end:#08305a}
+body{font-family:"Inter",sans-serif;background:var(--background-start);background:radial-gradient(circle at 50% 0%,var(--background-end) 0%,var(--background-start) 40%);color:#e5e5e5;line-height:1.6;overflow-x:hidden}
+.phone-mockup{width:100%;max-width:320px;aspect-ratio:15/31;background:#000;border-radius:40px;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 0 10px rgba(255,255,255,.05);position:relative;z-index:10}
+.phone-screen{width:100%;height:100%;border-radius:30px;overflow:hidden;background:#1a1a1a}
+.phone-mockup::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:100px;height:25px;background:#000;border-radius:0 0 15px 15px;z-index:2}
+.animate-on-scroll{opacity:0;transform:translateY(30px);transition:opacity .8s ease-out,transform .8s ease-out}
+.animate-on-scroll.is-visible{opacity:1;transform:none}
+.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+.scrollbar-hide::-webkit-scrollbar{display:none}
+.faq-content{max-height:0;overflow:hidden;transition:max-height .4s ease-out}
+.faq-item.active .faq-toggle-icon{transform:rotate(180deg)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--primary-color);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.animate-on-scroll{opacity:1;transform:none;transition:none}.faq-content{transition:none}}
+</style>
+</head>
+<body class="selection:bg-[var(--primary-color)] selection:text-black">
+<header class="sticky top-0 z-50 py-4 backdrop-blur-md bg-black/40 border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+    <a href="#" class="flex items-center space-x-2">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-[var(--primary-color)] text-white"><img src="resources/icon.png" alt="RandoRun Icon" class="w-full h-full object-contain" /></span>
+      <span class="text-2xl font-bold tracking-tight text-white">RandoRun</span>
+    </a>
+    <nav class="hidden md:flex gap-6 text-sm text-white/70 font-medium">
+      <a href="#features" class="hover:text-white">Features</a>
+      <a href="#faq" class="hover:text-white">FAQ</a>
+      <a href="#support" class="hover:text-white">Support</a>
+    </nav>
+  </div>
+</header>
+ 
+<main>
+<section id="hero" class="relative pt-16 pb-24 sm:pt-24 sm:pb-32 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+      <div class="lg:w-1/2 text-center lg:text-left animate-on-scroll">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white mb-6">
+          Every run becomes a <span class="text-[var(--primary-color)]">full-body workout.</span>
+        </h1>
+        <p class="text-xl text-white/70 mb-10 max-w-lg lg:max-w-none mx-auto lg:mx-0">
+          RandoRun gives you a random bodyweight exercise at unpredictable moments while you run. Stop, do the set, tap Complete, and keep going. No planning, no gym, no equipment.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+          <!-- TODO: replace YOUR_APP_ID with the numeric Apple ID from App Store Connect -->
+          <a href="https://apps.apple.com/app/id6825080333" target="_blank" rel="noopener" aria-label="Download RandoRun on the App Store">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style="height:48px;display:block" />
+          </a>
+          <a href="#support" class="px-8 py-3 border-2 border-[var(--primary-color)] text-[var(--primary-color)] font-medium rounded-xl hover:bg-[var(--primary-color)]/10 transition duration-300">Get support</a>
+        </div>
+      </div>
+      <div id="hero-visual" class="lg:w-1/2 flex justify-center mt-12 lg:mt-0">
+        <div class="relative">
+          <div class="absolute inset-0 m-auto w-64 h-64 rounded-full bg-[var(--primary-color)]/20 blur-3xl opacity-50 z-0 animate-pulse"></div>
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <video src="resources/randorun_new.mp4" autoplay loop muted playsinline class="w-full h-full object-cover">Your browser does not support the video tag.</video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<section id="free" class="py-24 sm:py-32 bg-white/5 border-t border-white/10">
+  <div class="max-w-3xl mx-auto text-center p-8 sm:p-10 rounded-2xl border border-white/10 bg-[var(--primary-color)]/10 backdrop-blur-md animate-on-scroll">
+    <h2 class="text-3xl font-extrabold text-[var(--primary-color)] mb-4">Free, Forever. No Ads. No Paywalls.</h2>
+    <p class="text-white/80 text-lg mb-6">Every Scheer Apps project is a gift, made so everyone can use it no matter their ability to pay. RandoRun has <strong>no ads, no locked features, and no tracking.</strong></p>
+    <blockquote class="text-white/70 italic border-l-4 border-[var(--secondary-color)] pl-4 mb-6 max-w-xl mx-auto text-left">A gift means everyone gets the full experience. If you've found it useful, you can say thanks in a few small ways.</blockquote>
+    <ul class="text-white/80 text-left list-disc list-inside max-w-md mx-auto mb-8 space-y-1">
+      <li>⭐ <strong>Rate or share</strong> the app to help others find it</li>
+      <li>💬 <strong>Send feedback</strong> or feature ideas. I'd love to hear them</li>
+      <li>🍎 <strong>Buy me an apple</strong> on <a href="https://ko-fi.com/scheerapps" class="text-[var(--primary-color)] hover:underline font-semibold">Ko-fi</a></li>
+    </ul>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="mailto:scheerapps@gmail.com?subject=RandoRun%20Feedback" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--secondary-color)] text-gray-900 font-bold rounded-lg shadow-lg hover:bg-[var(--secondary-color)]/80 transition duration-300"><i class="fa-solid fa-comment-dots"></i>Send Feedback</a>
+      <a href="https://ko-fi.com/scheerapps" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--secondary-color)] text-gray-900 font-bold rounded-lg shadow-lg hover:bg-[var(--secondary-color)]/80 transition duration-300"><i class="fa-solid fa-apple-whole"></i>Buy Me an Apple</a>
+    </div>
+  </div>
+</section>
+ 
+<section id="features" class="py-20 sm:py-28 border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 animate-on-scroll">
+      <h2 class="text-4xl font-extrabold text-white">Built for working out on the move</h2>
+      <p class="mt-4 text-xl text-white/70 max-w-2xl mx-auto">30 exercises across arms, legs, core, cardio, and flexibility.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="feature-grid"></div>
+  </div>
+</section>
+ 
+<section id="gallery" class="py-20 sm:py-28 bg-white/5 border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-extrabold text-white text-center mb-12 animate-on-scroll">See it in action</h2>
+    <div id="gallery-row" class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 scrollbar-hide"></div>
+  </div>
+</section>
+ 
+<section id="faq" class="py-20 sm:py-28">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-extrabold text-white text-center mb-12 animate-on-scroll">Frequently asked questions</h2>
+    <div class="space-y-4" id="faq-list"></div>
+  </div>
+</section>
+ 
+<section id="support" class="py-20 sm:py-28 bg-white/5 border-y border-white/10">
+  <div class="max-w-3xl mx-auto text-center px-4 sm:px-6 lg:px-8 animate-on-scroll">
+    <h2 class="text-4xl font-extrabold text-white mb-4">Need help?</h2>
+    <p class="text-xl text-white/70 mb-8">Found a bug or have an idea? Email <a class="text-[var(--primary-color)] hover:underline" href="mailto:scheerapps@gmail.com?subject=RandoRun%20Support">scheerapps@gmail.com</a>. Please include your iPhone model and iOS version.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <a href="mailto:scheerapps@gmail.com?subject=RandoRun%20Support" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--primary-color)] text-gray-900 font-bold rounded-lg hover:opacity-90 transition"><i class="fa-solid fa-envelope"></i>Email support</a>
+      <a href="https://apps.apple.com/app/id6825080333" target="_blank" rel="noopener" aria-label="Download RandoRun on the App Store"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style="height:48px;display:block" /></a>
+    </div>
+  </div>
+</section>
+</main>
+ 
+<footer class="py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-white/50">
+    <p>&copy; 2026 Kyle Scheer LLC. All rights reserved.</p>
+    <p class="mt-2">Built with <span class="text-red-500/70">🧠</span> by <a href="https://kylescheer.com" target="_blank" rel="noopener" class="text-white/70 hover:text-[var(--primary-color)] transition">Kyle Scheer</a>.</p>
+    <div class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2">
+      <a href="mailto:scheerapps@gmail.com" class="text-white/70 hover:text-[var(--primary-color)] transition">Email</a>
+      <a href="https://ko-fi.com/scheerapps" class="text-white/70 hover:text-[var(--primary-color)] transition">Donate via Ko-fi</a>
+      <a href="https://www.reddit.com/user/soccerkyle1" target="_blank" rel="noopener" class="text-white/70 hover:text-[var(--primary-color)] transition">Reddit</a>
+      <a href="https://www.producthunt.com/@scheerapps" target="_blank" rel="noopener" class="text-white/70 hover:text-[var(--primary-color)] transition">Product Hunt</a>
+      <a href="../../privacy-policy.html" class="text-white/70 hover:text-[var(--primary-color)] transition">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+ 
+<script>
+const features=[
+["fa-shuffle","Random prompts","A random exercise after a random interval. Complete, switch, or skip with one tap."],
+["fa-volume-high","Glanceable","Big exercise cards, voice announcements, sounds, and haptics, so you rarely look at your phone."],
+["fa-sliders","Make it yours","Set your interval range, turn exercises on or off, switch any exercise between reps and seconds, and add an optional target time."],
+["fa-chart-line","Track progress","All-time stats, full workout history, a breakdown by exercise, and CSV export."]];
+document.getElementById("feature-grid").innerHTML=features.map(f=>`<div class="p-8 rounded-2xl bg-white/5 border border-white/10 animate-on-scroll"><div class="text-[var(--secondary-color)] text-5xl mb-4"><i class="fa-solid ${f[0]}"></i></div><h3 class="text-xl font-bold text-white mb-2">${f[1]}</h3><p class="text-white/70 text-sm">${f[2]}</p></div>`).join("");
+ 
+// Screenshots load from resources/1.png ... resources/6.png, in this order
+const shots=["Pick your exercise focus","Variable run times","Random exercises","Built-in exercise timers","30 exercises","Customize to your needs"];
+document.getElementById("gallery-row").innerHTML=shots.map((s,i)=>`<div class="flex-shrink-0 w-72 md:w-80 snap-center relative rounded-3xl overflow-hidden shadow-2xl border border-white/10"><img src="resources/${i+1}.png" alt="${s}" loading="lazy" class="w-full h-auto" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex items-end"><p class="text-white font-semibold text-lg">${s}</p></div></div>`).join("");
+ 
+const faqs=[
+["Is it really free? How do you make money?","Yes. RandoRun has no ads and no locked features, and it will stay that way. I make apps because I want them to exist. If you enjoy it, you can say thanks on Ko-fi or by sharing the app."],
+["How often do exercises appear?","At random intervals. Open Settings and change the Interval Range to set the shortest and longest gap between prompts. Try 5 to 10 seconds to see how it works indoors."],
+["Can I choose which exercises I get?","Yes. Pick exercise groups when you start a workout. In Settings, open Customize Exercises to turn individual exercises on or off, change their rep or second ranges, or switch any exercise between reps and seconds."],
+["Can I use it with music or podcasts?","Yes. Announcements lower your music volume briefly, then it returns to normal. You can turn sounds, haptics, and voice announcements off separately in Settings."],
+["Can I set a workout length?","Yes. When you set up a workout, turn on Set Target Duration and pick 5 to 120 minutes. A progress bar shows your time, and you get an alert when you reach it. You can keep going or finish."],
+["Can I export my history?","Yes. Open Stats, switch to the History tab, tap the menu, and choose Export History to get a CSV file."],
+["Is it safe to use while running?","Only exercise where it is safe to stop, away from traffic and obstacles. Check with a doctor before starting any new exercise program."],
+["Is my data private?","Yes. Your workout history stays on your device. RandoRun needs no account and has no analytics or tracking, so it collects no data about you. The Privacy Policy (linked in the footer) has the details."],
+["Where do I report a bug or request a feature?","Email scheerapps@gmail.com with your iPhone model and iOS version. I read every message."]];
+document.getElementById("faq-list").innerHTML=faqs.map(f=>`<div class="faq-item border border-white/10 rounded-lg"><button class="faq-toggle w-full flex justify-between items-center gap-4 p-5 text-left font-semibold text-white hover:bg-white/5 transition" aria-expanded="false"><span>${f[0]}</span><i class="fa-solid fa-chevron-down text-sm faq-toggle-icon transition-transform"></i></button><div class="faq-content bg-white/5"><p class="p-5 text-white/70">${f[1]}</p></div></div>`).join("");
+ 
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".faq-toggle"); if(!b) return;
+  const item=b.closest(".faq-item"), open=item.classList.contains("active");
+  document.querySelectorAll(".faq-item.active").forEach(i=>{i.classList.remove("active");i.querySelector(".faq-content").style.maxHeight=null;i.querySelector(".faq-toggle").setAttribute("aria-expanded","false")});
+  if(!open){item.classList.add("active");const c=item.querySelector(".faq-content");c.style.maxHeight=c.scrollHeight+"px";b.setAttribute("aria-expanded","true")}
+});
+ 
+const io=new IntersectionObserver((es,o)=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("is-visible");o.unobserve(en.target)}}),{threshold:.1,rootMargin:"0px 0px -50px 0px"});
+document.querySelectorAll(".animate-on-scroll").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
