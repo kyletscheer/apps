@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>KindFocus | Set distractions aside, kindly</title>
+    <meta name="description" content="KindFocus is a calm, free screen time app for iPhone. Set apps aside with a sentence, take a breath before every pause, and see your week without the guilt. No ads, no account, nothing leaves your phone." />
+    <meta property="og:title" content="KindFocus: set distractions aside, kindly" />
+    <meta property="og:description" content="A calm, free screen time app for iPhone. No ads, no account, nothing leaves your phone." />
+    <meta property="og:image" content="resources/og-image.png" />
+    <meta name="theme-color" content="#f4f5f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#151917" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" href="resources/favicon.png" />
+    <link rel="apple-touch-icon" href="resources/apple-touch-icon.png" />
+    <!-- Remember to replace YOUR_APP_ID below with the App Store ID once the app is live -->
+    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/016db943e9.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* KindFocus palette — same tokens as the app's Theme.swift */
+      :root {
+        --bg: #f4f5f1;
+        --wash1: #e7e1f3; /* lavender */
+        --wash2: #dce9df; /* sage mist */
+        --wash3: #f6e5de; /* blush */
+        --card: rgba(255, 255, 255, 0.66);
+        --card-solid: #fbfbf9;
+        --line: rgba(51, 58, 54, 0.09);
+        --ink: #323a35;
+        --ink2: #6c756f;
+        --ink3: #9aa29c;
+        --sage: #6f8f7b;
+        --sage-deep: #4d6c59;
+        --sage-soft: #e1ebe2;
+        --on-sage: #ffffff;
+        --lav: #8379ad;
+        --lav-soft: #ece8f6;
+        --stone: #ebe7df;
+        --stone-ink: #6b6255;
+        --shadow: rgba(60, 80, 68, 0.1);
+        --serif: "New York", "Newsreader", ui-serif, Georgia, serif;
+        --round: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, sans-serif;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #151917;
+          --wash1: #2a2638;
+          --wash2: #1d2a22;
+          --wash3: #2e2420;
+          --card: rgba(255, 255, 255, 0.055);
+          --card-solid: #1d221f;
+          --line: rgba(230, 236, 231, 0.09);
+          --ink: #e4e8e3;
+          --ink2: #a3aca5;
+          --ink3: #737c75;
+          --sage: #8fb09b;
+          --sage-deep: #b4d0bd;
+          --sage-soft: rgba(143, 176, 155, 0.16);
+          --on-sage: #13201a;
+          --lav: #b9b0dc;
+          --lav-soft: rgba(179, 170, 214, 0.14);
+          --stone: rgba(214, 204, 186, 0.12);
+          --stone-ink: #d6ccba;
+          --shadow: rgba(0, 0, 0, 0.4);
+          color-scheme: dark;
+        }
+      }
+
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: var(--round);
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      /* Soft pastel washes behind everything */
+      .wash {
+        position: fixed;
+        inset: -20%;
+        z-index: -1;
+        pointer-events: none;
+        background:
+          radial-gradient(38% 30% at 15% 10%, var(--wash1), transparent 70%),
+          radial-gradient(40% 32% at 90% 30%, var(--wash3), transparent 70%),
+          radial-gradient(50% 40% at 30% 90%, var(--wash2), transparent 70%);
+        animation: drift 80s ease-in-out infinite alternate;
+      }
+      @keyframes drift { to { transform: translate3d(3%, -2%, 0) rotate(3deg); } }
+
+      .serif { font-family: var(--serif); }
+      .text-ink { color: var(--ink); }
+      .text-ink2 { color: var(--ink2); }
+      .text-sage { color: var(--sage-deep); }
+      .text-lav { color: var(--lav); }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        backdrop-filter: blur(18px) saturate(1.2);
+        -webkit-backdrop-filter: blur(18px) saturate(1.2);
+        box-shadow: 0 8px 30px var(--shadow);
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--sage-deep);
+        background: var(--sage-soft);
+        padding: 6px 12px;
+        border-radius: 999px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 50px;
+        padding: 0 22px;
+        border-radius: 18px;
+        font-weight: 700;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+      .btn:hover { transform: translateY(-1px); }
+      .btn-quiet { background: var(--sage-soft); color: var(--sage-deep); }
+      .btn-primary { background: var(--sage); color: var(--on-sage); }
+      a:focus-visible, button:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; border-radius: 12px; }
+
+      /* The sentence, like in the app */
+      .flow { display: flex; flex-wrap: wrap; column-gap: 8px; row-gap: 12px; align-items: baseline; }
+      .word { font-family: var(--serif); font-weight: 300; font-size: clamp(22px, 3vw, 30px); line-height: 1.3; }
+      .chip {
+        font-family: var(--round);
+        font-weight: 600;
+        font-size: clamp(17px, 2.3vw, 23px);
+        line-height: 1.3;
+        padding: 4px 14px;
+        border-radius: 999px;
+        color: var(--sage-deep);
+        background: var(--sage-soft);
+        white-space: nowrap;
+      }
+      .chip.soft { color: var(--lav); background: var(--lav-soft); }
+      .nw { display: inline-flex; align-items: baseline; white-space: nowrap; }
+
+      /* Phone frame */
+      .phone-mockup {
+        width: 100%;
+        max-width: 310px;
+        aspect-ratio: 9 / 19.5;
+        background: #1b1d1c;
+        border-radius: 46px;
+        padding: 9px;
+        box-shadow: 0 30px 80px var(--shadow);
+        position: relative;
+        z-index: 1;
+      }
+      .phone-screen { width: 100%; height: 100%; border-radius: 38px; overflow: hidden; background: var(--bg); }
+
+      .orb {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 22rem;
+        height: 22rem;
+        border-radius: 50%;
+        background: radial-gradient(circle at 45% 40%, var(--wash1), var(--sage-soft) 55%, transparent 72%);
+        animation: breathe 8s ease-in-out infinite;
+        z-index: 0;
+      }
+      @keyframes breathe { 0%, 100% { transform: scale(0.9); opacity: 0.8; } 50% { transform: scale(1.04); opacity: 1; } }
+
+      .glyph {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+        background: var(--sage-soft);
+        color: var(--sage-deep);
+      }
+      .glyph.lav { background: var(--lav-soft); color: var(--lav); }
+      .glyph.stone { background: var(--stone); color: var(--stone-ink); }
+
+      .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink2); }
+
+      /* Gentle fade-in. Content stays visible if JavaScript never runs. */
+      .js .animate-on-scroll { opacity: 0; transform: translateY(18px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+      .js .animate-on-scroll.is-visible { opacity: 1; transform: none; }
+      .d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; } .d3 { transition-delay: 0.24s; }
+
+      .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+      .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+      .faq-item.active .faq-toggle-icon { transform: rotate(180deg); }
+      .faq-item + .faq-item { border-top: 1px solid var(--line); }
+
+      .avatar {
+        width: 52px; height: 52px; border-radius: 50%; flex: none; overflow: hidden;
+        background: var(--wash3); display: grid; place-items: center;
+        font-family: var(--serif); font-size: 24px; color: var(--ink);
+      }
+      .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, .wash, .orb { animation: none !important; transition: none !important; }
+        .js .animate-on-scroll { opacity: 1; transform: none; }
+      }
+    </style>
+    <script>document.documentElement.classList.add("js");</script>
+  </head>
+
+  <body class="antialiased">
+    <div class="wash" aria-hidden="true"></div>
+
+    <header class="sticky top-0 z-50 py-4 backdrop-blur-md border-b" style="border-color: var(--line); background: color-mix(in srgb, var(--bg) 70%, transparent)">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8 flex justify-between items-center">
+        <a href="#" class="flex items-center gap-2.5" aria-label="KindFocus home">
+         <img src="resources/clearIcon.png" height="32" width="32" alt="" />
+          <span class="serif text-2xl text-ink">KindFocus</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-ink2">
+          <a href="#how" class="hover:opacity-70">How it works</a>
+          <a href="#free" class="hover:opacity-70">Free</a>
+          <a href="#faq" class="hover:opacity-70">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section id="hero" class="relative pt-14 pb-20 sm:pt-24 sm:pb-28">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+          <div class="flex flex-col lg:flex-row items-center justify-between gap-14">
+            <div class="lg:w-1/2 text-center lg:text-left animate-on-scroll">
+              <p class="eyebrow mb-4">A calm screen time app for iPhone</p>
+              <h1 class="serif font-light text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-ink mb-6" style="text-wrap: balance">
+                Set distractions aside, <em class="text-sage not-italic">kindly</em>.
+              </h1>
+              <p class="text-lg md:text-xl text-ink2 mb-8 max-w-xl mx-auto lg:mx-0">
+                You decide what to set aside and for how long. KindFocus helps you keep your word, gently or firmly. Your choice.
+              </p>
+
+              <div class="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
+                <a href="https://apps.apple.com/app/idYOUR_APP_ID" target="_blank" rel="noopener" aria-label="Download KindFocus on the App Store">
+                  <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style="height: 52px; display: block" />
+                </a>
+              </div>
+
+              <div class="flex flex-wrap gap-2 mt-8 justify-center lg:justify-start">
+                <span class="pill">Free</span>
+                <span class="pill">No ads</span>
+                <span class="pill">No account</span>
+                <span class="pill">Nothing leaves your phone</span>
+              </div>
+            </div>
+
+            <div class="lg:w-1/2 flex justify-center">
+              <div class="relative w-full flex justify-center py-6">
+                <div class="orb" aria-hidden="true"></div>
+                <div class="phone-mockup animate-on-scroll d2">
+                  <div class="phone-screen">
+                    <video src="resources/recording1.mp4" poster="resources/screenshot1.png" autoplay loop muted playsinline class="w-full h-full object-cover" aria-label="KindFocus in use: building a focus as a sentence and starting it">
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- The sentence -->
+      <section id="how" class="py-16 sm:py-24">
+        <div class="max-w-4xl mx-auto px-5 sm:px-8">
+          <div class="text-center mb-10 animate-on-scroll">
+            <p class="eyebrow mb-3">How it works</p>
+            <h2 class="serif font-light text-4xl md:text-5xl text-ink" style="text-wrap: balance">Say it like a sentence</h2>
+            <p class="mt-4 text-lg text-ink2 max-w-2xl mx-auto">
+              Every focus and rule reads like something you'd say out loud. Tap a blank, choose what fits, read it back. No settings maze.
+            </p>
+          </div>
+
+          <div class="card p-7 sm:p-10 animate-on-scroll d1">
+            <div class="flow" aria-label="Set aside Social Media, except Maps, for 45 minutes, with one pause after a wait, and hold me to it.">
+              <span class="word">Set aside</span>
+              <span class="nw"><span class="chip">Social Media</span><span class="word">,</span></span>
+              <span class="nw"><span class="chip">except Maps</span><span class="word">,</span></span>
+              <span class="word">for</span>
+              <span class="nw"><span class="chip">45 min</span><span class="word">,</span></span>
+              <span class="word">with</span>
+              <span class="nw"><span class="chip">one pause after a wait</span><span class="word">,</span></span>
+              <span class="word">and</span>
+              <span class="nw"><span class="chip">hold me to it</span><span class="word">.</span></span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+            <div class="card p-6 animate-on-scroll d1">
+              <p class="serif text-xl text-ink mb-1">Focus for now</p>
+              <p class="text-ink2 text-sm">Set a list aside right now, for a while. Save it as a setup and start it from your Home Screen.</p>
+            </div>
+            <div class="card p-6 animate-on-scroll d2">
+              <p class="serif text-xl text-ink mb-1">Rules for every day</p>
+              <p class="text-ink2 text-sm">On a schedule, a daily allowance, or a few short visits a day. They run on their own.</p>
+            </div>
+            <div class="card p-6 animate-on-scroll d3">
+              <p class="serif text-xl text-ink mb-1">Lists at the heart</p>
+              <p class="text-ink2 text-sm">Group the apps that pull at you. Add exceptions for the ones you always need.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section id="features" class="py-16 sm:py-24">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+          <div class="text-center mb-14 animate-on-scroll">
+            <h2 class="serif font-light text-4xl md:text-5xl text-ink">Gentle, or steadfast</h2>
+            <p class="mt-4 text-lg text-ink2 max-w-2xl mx-auto">KindFocus meets you where you are, and lets you choose how firm to be.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="card p-7 animate-on-scroll d1">
+              <div class="glyph lav mb-5"><i class="fa-regular fa-hourglass-half" aria-hidden="true"></i></div>
+              <h3 class="serif text-2xl text-ink mb-2">A breath before every pause</h3>
+              <p class="text-ink2">Need something? Ask for a pause. First take a breath with a short wait that grows a little each time. Often that's enough to change your mind.</p>
+            </div>
+            <div class="card p-7 animate-on-scroll d2">
+              <div class="glyph lav mb-5"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></div>
+              <h3 class="serif text-2xl text-ink mb-2">Or write an intention</h3>
+              <p class="text-ink2">Before a pause opens, say in a few words what it's for. "Check the bus times" is a reason. "Just bored" is an answer too.</p>
+            </div>
+            <div class="card p-7 animate-on-scroll d3">
+              <div class="glyph stone mb-5"><i class="fa-solid fa-lock" aria-hidden="true"></i></div>
+              <h3 class="serif text-2xl text-ink mb-2">Steadfast when you mean it</h3>
+              <p class="text-ink2">Make a focus steadfast and it can't be ended early. It finishes on its own when the time is up.</p>
+            </div>
+            <div class="card p-7 animate-on-scroll d1">
+              <div class="glyph mb-5"><i class="fa-regular fa-calendar" aria-hidden="true"></i></div>
+              <h3 class="serif text-2xl text-ink mb-2">Rules that run on their own</h3>
+              <p class="text-ink2">Weekdays from 9 to 5. Thirty minutes a day. Twice a day for ten minutes. Set it once and let it be.</p>
+            </div>
+            <div class="card p-7 animate-on-scroll d2">
+              <div class="glyph mb-5"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i></div>
+              <h3 class="serif text-2xl text-ink mb-2">Start in one tap</h3>
+              <p class="text-ink2">Save your favorite focuses as setups and start them from your Home Screen or Lock Screen. A live ring shows what's left.</p>
+            </div>
+            <div class="card p-7 animate-on-scroll d3">
+              <div class="glyph mb-5"><i class="fa-solid fa-leaf" aria-hidden="true"></i></div>
+              <h3 class="serif text-2xl text-ink mb-2">A quiet look back</h3>
+              <p class="text-ink2">Your week as a reflection, not a scoreboard: time in focus, the moments you chose calm, and what your pauses were for. No streaks. No guilt.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery -->
+      <section id="gallery" class="py-16 sm:py-24">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+          <div class="text-center mb-12 animate-on-scroll">
+            <h2 class="serif font-light text-4xl md:text-5xl text-ink">A closer look</h2>
+          </div>
+
+          <!-- Replace each src with your screenshots (resources/screenshotN.png). -->
+          <div class="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-6 scrollbar-hide" tabindex="0" aria-label="App screenshots, scroll sideways">
+            <figure class="flex-shrink-0 w-64 md:w-72 snap-center">
+              <img src="resources/screenshot17.png" alt="Focus screen with a sentence ready to begin" class="w-full h-auto rounded-[32px] card" loading="lazy" />
+              <figcaption class="serif text-lg text-ink text-center mt-4">Set distractions aside, kindly</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 md:w-72 snap-center">
+              <img src="resources/screenshot16.png" alt="Sentence builder with a choice open" class="w-full h-auto rounded-[32px] card" loading="lazy" />
+              <figcaption class="serif text-lg text-ink text-center mt-4">Say it like a sentence</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 md:w-72 snap-center">
+              <img src="resources/screenshot20.png" alt="Breathing countdown before a pause" class="w-full h-auto rounded-[32px] card" loading="lazy" />
+              <figcaption class="serif text-lg text-ink text-center mt-4">A breath before every pause</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 md:w-72 snap-center">
+              <img src="resources/screenshot18.png" alt="Or write an intention" class="w-full h-auto rounded-[32px] card" loading="lazy" />
+              <figcaption class="serif text-lg text-ink text-center mt-4">Or write an intention</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 md:w-72 snap-center">
+              <img src="resources/screenshot24.png" alt="Rules with their status" class="w-full h-auto rounded-[32px] card" loading="lazy" />
+              <figcaption class="serif text-lg text-ink text-center mt-4">Rules that run on their own</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 md:w-72 snap-center">
+              <img src="resources/screenshot10.png" alt="Lists view" class="w-full h-auto rounded-[32px] card" loading="lazy" />
+              <figcaption class="serif text-lg text-ink text-center mt-4">Make lists of distractions and lists allowed</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 md:w-72 snap-center">
+              <img src="resources/screenshot25.png" alt="App Blocked Example" class="w-full h-auto rounded-[32px] card" loading="lazy" />
+              <figcaption class="serif text-lg text-ink text-center mt-4">A gentle redirect</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 md:w-72 snap-center">
+              <img src="resources/screenshot26.png" alt="Ongoing widgets" class="w-full h-auto rounded-[32px] card" loading="lazy" />
+              <figcaption class="serif text-lg text-ink text-center mt-4">Ongoing widgets</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 md:w-72 snap-center">
+              <img src="resources/screenshot27.png" alt="Quickly start a focus session" class="w-full h-auto rounded-[32px] card" loading="lazy" />
+              <figcaption class="serif text-lg text-ink text-center mt-4">Quickly start a focus session</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- Free + note from Kyle -->
+      <section id="free" class="py-16 sm:py-24">
+        <div class="max-w-3xl mx-auto px-5 sm:px-8">
+          <div class="text-center mb-10 animate-on-scroll">
+            <h2 class="serif font-light text-4xl md:text-5xl text-ink">Free, and staying that way</h2>
+            <p class="mt-4 text-lg text-ink2">No ads. No account. No locked features. Nothing you do leaves your phone.</p>
+          </div>
+
+          <div class="card p-7 sm:p-9 animate-on-scroll d1">
+            <div class="flex items-center gap-3 mb-5">
+              <img src="resources/Kyle.jpeg" alt="Kyle" class="w-12 h-12 rounded-full object-cover" />
+              <p class="font-bold text-ink text-lg">Hi, I'm Kyle</p>
+            </div>
+            <p class="serif font-light text-xl md:text-2xl leading-relaxed text-ink">
+              I built KindFocus because I struggle with phone addiction, and I wanted a kinder way to hold myself accountable.
+            </p>
+            <p class="serif font-light text-xl md:text-2xl leading-relaxed text-ink mt-4">
+              Every ScheerApps project is free for everyone, no matter what they can pay. If KindFocus helps you, here are a few small ways to say thanks.
+            </p>
+            <p class="serif italic font-light text-2xl text-sage mt-5">— Kyle</p>
+
+            <div class="grid sm:grid-cols-3 gap-3 mt-8">
+              <a href="https://apps.apple.com/app/idYOUR_APP_ID?action=write-review" target="_blank" rel="noopener" class="btn btn-quiet"><i class="fa-regular fa-star" aria-hidden="true"></i>Rate it</a>
+              <a href="mailto:scheerapps@gmail.com?subject=KindFocus%20feedback" class="btn btn-quiet"><i class="fa-regular fa-comment" aria-hidden="true"></i>Send feedback</a>
+              <a href="https://ko-fi.com/scheerapps" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-solid fa-apple-whole" aria-hidden="true"></i>Buy me an apple</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="py-16 sm:py-24">
+        <div class="max-w-3xl mx-auto px-5 sm:px-8">
+          <div class="text-center mb-10 animate-on-scroll">
+            <h2 class="serif font-light text-4xl md:text-5xl text-ink">Questions</h2>
+          </div>
+
+          <div class="card overflow-hidden animate-on-scroll d1">
+            <div class="faq-item">
+              <button class="faq-toggle w-full flex justify-between items-center gap-4 p-5 sm:p-6 text-left font-bold text-ink" aria-expanded="false">
+                <span>Is it really free? How do you make money?</span>
+                <i class="fa-solid fa-chevron-down text-sm text-ink2 faq-toggle-icon transition-transform" aria-hidden="true"></i>
+              </button>
+              <div class="faq-content"><p class="px-5 sm:px-6 pb-6 text-ink2">Yes, all of it, with no ads or locked features. I make apps because I want them to exist. If KindFocus is useful to you, you can support it through Ko-fi, by rating it, or by telling a friend.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-toggle w-full flex justify-between items-center gap-4 p-5 sm:p-6 text-left font-bold text-ink" aria-expanded="false">
+                <span>Why does it need Screen Time access?</span>
+                <i class="fa-solid fa-chevron-down text-sm text-ink2 faq-toggle-icon transition-transform" aria-hidden="true"></i>
+              </button>
+              <div class="faq-content"><p class="px-5 sm:px-6 pb-6 text-ink2">Screen Time is how iOS lets an app set other apps aside. KindFocus uses Apple's own Screen Time framework, the same one built into your iPhone.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-toggle w-full flex justify-between items-center gap-4 p-5 sm:p-6 text-left font-bold text-ink" aria-expanded="false">
+                <span>Can KindFocus see which apps I use?</span>
+                <i class="fa-solid fa-chevron-down text-sm text-ink2 faq-toggle-icon transition-transform" aria-hidden="true"></i>
+              </button>
+              <div class="faq-content"><p class="px-5 sm:px-6 pb-6 text-ink2">No. When you choose apps, Apple hands KindFocus private tokens instead of names. The Screen Time numbers on the Activity tab are drawn by Apple on your phone and never reach KindFocus. There's no analytics and no server.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-toggle w-full flex justify-between items-center gap-4 p-5 sm:p-6 text-left font-bold text-ink" aria-expanded="false">
+                <span>How do pauses work?</span>
+                <i class="fa-solid fa-chevron-down text-sm text-ink2 faq-toggle-icon transition-transform" aria-hidden="true"></i>
+              </button>
+              <div class="faq-content"><p class="px-5 sm:px-6 pb-6 text-ink2">When you open a set-aside app, you can ask for a pause right from its screen. KindFocus sends you a notification; tap it, take a breath or write a few words, and the app opens for the few minutes you chose. Pauses need notifications turned on.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-toggle w-full flex justify-between items-center gap-4 p-5 sm:p-6 text-left font-bold text-ink" aria-expanded="false">
+                <span>What does steadfast mean? Can I end it early?</span>
+                <i class="fa-solid fa-chevron-down text-sm text-ink2 faq-toggle-icon transition-transform" aria-hidden="true"></i>
+              </button>
+              <div class="faq-content"><p class="px-5 sm:px-6 pb-6 text-ink2">A steadfast focus can't be ended early, and a steadfast rule can't be turned off while it runs. That's the point. Exceptions and any pauses you set still work. KindFocus always asks you to confirm before a steadfast focus begins.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-toggle w-full flex justify-between items-center gap-4 p-5 sm:p-6 text-left font-bold text-ink" aria-expanded="false">
+                <span>Is there an Android version?</span>
+                <i class="fa-solid fa-chevron-down text-sm text-ink2 faq-toggle-icon transition-transform" aria-hidden="true"></i>
+              </button>
+              <div class="faq-content"><p class="px-5 sm:px-6 pb-6 text-ink2">Not right now. KindFocus is built on Apple's Screen Time, so it's for iPhone and iPad.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-toggle w-full flex justify-between items-center gap-4 p-5 sm:p-6 text-left font-bold text-ink" aria-expanded="false">
+                <span>Where can I send bugs and ideas?</span>
+                <i class="fa-solid fa-chevron-down text-sm text-ink2 faq-toggle-icon transition-transform" aria-hidden="true"></i>
+              </button>
+              <div class="faq-content"><p class="px-5 sm:px-6 pb-6 text-ink2">I'd love to hear from you: <span class="text-sage font-bold select-all">scheerapps@gmail.com</span>. Tell me what's working and what isn't.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="py-20 sm:py-28">
+        <div class="max-w-3xl mx-auto text-center px-5 sm:px-8 animate-on-scroll">
+          <h2 class="serif font-light text-4xl md:text-6xl text-ink mb-5" style="text-wrap: balance">Begin with one list</h2>
+          <p class="text-lg md:text-xl text-ink2 mb-9">Choose the apps that pull at you most. You can change it anytime.</p>
+          <a href="https://apps.apple.com/app/idYOUR_APP_ID" target="_blank" rel="noopener" class="inline-block" aria-label="Download KindFocus on the App Store">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style="height: 52px; display: block" />
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-12 border-t" style="border-color: var(--line)">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8 text-center text-sm text-ink2">
+        <p>&copy; 2026 Kyle Scheer LLC. All rights reserved.</p>
+        <p class="mt-2">Made with care by <a href="https://kylescheer.com" target="_blank" rel="noopener" class="text-sage font-bold hover:opacity-70">Kyle Scheer</a>.</p>
+        <div class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <a href="mailto:scheerapps@gmail.com" class="hover:opacity-70">Email</a>
+          <a href="https://ko-fi.com/scheerapps" target="_blank" rel="noopener" class="hover:opacity-70">Ko-fi</a>
+          <a href="https://www.reddit.com/user/soccerkyle1" target="_blank" rel="noopener" class="hover:opacity-70">Reddit</a>
+          <a href="https://www.producthunt.com/@scheerapps" target="_blank" rel="noopener" class="hover:opacity-70">Product Hunt</a>
+          <a href="privacy.html" class="hover:opacity-70">Privacy policy</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Gentle fade-in as sections scroll into view
+        const els = document.querySelectorAll(".animate-on-scroll");
+        if ("IntersectionObserver" in window) {
+          const io = new IntersectionObserver(
+            (entries, obs) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  e.target.classList.add("is-visible");
+                  obs.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+          );
+          els.forEach((el) => io.observe(el));
+        } else {
+          els.forEach((el) => el.classList.add("is-visible"));
+        }
+
+        // FAQ accordion: one open at a time
+        document.querySelectorAll(".faq-toggle").forEach((button) => {
+          button.addEventListener("click", () => {
+            const item = button.closest(".faq-item");
+            const content = item.querySelector(".faq-content");
+            const open = item.classList.contains("active");
+            document.querySelectorAll(".faq-item.active").forEach((other) => {
+              other.classList.remove("active");
+              other.querySelector(".faq-content").style.maxHeight = null;
+              other.querySelector(".faq-toggle").setAttribute("aria-expanded", "false");
+            });
+            if (!open) {
+              item.classList.add("active");
+              content.style.maxHeight = content.scrollHeight + "px";
+              button.setAttribute("aria-expanded", "true");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
